@@ -1,0 +1,2 @@
+hello search-filter!
+It's dummy.txt
