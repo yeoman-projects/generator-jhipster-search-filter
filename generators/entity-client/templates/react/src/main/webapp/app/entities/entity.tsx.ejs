@@ -22,8 +22,8 @@ import InfiniteScroll from 'react-infinite-scroller';
 <%_ } _%>
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, <% if (searchEngine === 'elasticsearch' || jpaModelFiltering) { %>InputGroup, <% } %>Col, Row, Table } from 'reactstrap';
-<%_ if (searchEngine === 'elasticsearch' || jpaModelFiltering) { _%>
+import { Button, <% if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { %>InputGroup, <% } %>Col, Row, Table } from 'reactstrap';
+<%_ if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { _%>
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 <%_ } _%>
 // tslint:disable-next-line:no-unused-variable
@@ -34,7 +34,7 @@ import {
     <%_ } _%>
   byteSize,
   <%_ } _%>
-  Translate<% if (searchEngine === 'elasticsearch' || jpaModelFiltering) { %>, translate, ICrudSearchAction<% } %>,
+  Translate<% if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { %>, translate, ICrudSearchAction<% } %>,
   ICrudGetAllAction<% if (fieldsContainDate) { %>, TextFormat<% } %>
   <%_ if (pagination !== 'no') { _%>
   , getSortState, IPaginationBaseState
@@ -46,7 +46,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import {
-  <%_ if (searchEngine === 'elasticsearch' || jpaModelFiltering) { _%>
+  <%_ if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { _%>
   getSearchEntities,
   <%_ } _%>
   getEntities
@@ -63,11 +63,11 @@ import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 export interface I<%= entityReactName %>Props extends StateProps, DispatchProps, RouteComponentProps<{url: string}> {}
 
-<% if (searchEngine === 'elasticsearch' || jpaModelFiltering && pagination !== 'no') { _%>
+<% if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering && pagination !== 'no') { _%>
 export interface I<%= entityReactName %>State extends IPaginationBaseState {
   search: string;
 }
-<%_ } else if (searchEngine === 'elasticsearch' || jpaModelFiltering) { _%>
+<%_ } else if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { _%>
 export interface I<%= entityReactName %>State {
   search: string;
 }
@@ -75,10 +75,10 @@ export interface I<%= entityReactName %>State {
 export type I<%= entityReactName %>State = IPaginationBaseState;
 <%_ } _%>
 
-export class <%= entityReactName %> extends React.Component<I<%= entityReactName %>Props<% if (searchEngine === 'elasticsearch' || jpaModelFiltering || pagination !== 'no') { %>, I<%= entityReactName %>State<% } %>> {
-  <%_ if (searchEngine === 'elasticsearch' || jpaModelFiltering || pagination !== 'no') { _%>
+export class <%= entityReactName %> extends React.Component<I<%= entityReactName %>Props<% if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering || pagination !== 'no') { %>, I<%= entityReactName %>State<% } %>> {
+  <%_ if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering || pagination !== 'no') { _%>
   state: I<%= entityReactName %>State = {
-    <%_ if (searchEngine === 'elasticsearch' || jpaModelFiltering) { _%>
+    <%_ if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { _%>
     search: '',
     <%_ } _%>
     <%_ if (pagination !== 'no') { _%>
@@ -107,7 +107,7 @@ export class <%= entityReactName %> extends React.Component<I<%= entityReactName
   }
   <%_ } _%>
 
-  <%_ if (searchEngine === 'elasticsearch' || jpaModelFiltering) { _%>
+  <%_ if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { _%>
   search = () => {
     if (this.state.search) {
       <%_ if (pagination === 'infinite-scroll') { _%>
@@ -174,7 +174,7 @@ export class <%= entityReactName %> extends React.Component<I<%= entityReactName
   <%_ } _%>
 
   getEntities = () => {
-    <%_ if (searchEngine === 'elasticsearch' || jpaModelFiltering) { _%>
+    <%_ if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { _%>
     const { activePage, itemsPerPage, sort, order, search } = this.state;
     if (search) {
       this.props.getSearchEntities(search, activePage - 1, itemsPerPage, `${sort},${order}`);
@@ -201,7 +201,7 @@ export class <%= entityReactName %> extends React.Component<I<%= entityReactName
             </Translate>
           </Link>
         </h2>
-        <%_ if (searchEngine === 'elasticsearch' || jpaModelFiltering) { _%>
+        <%_ if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { _%>
         <Row>
           <Col sm="12">
             <AvForm onSubmit={this.search}>
@@ -403,7 +403,7 @@ const mapStateToProps = ({ <%= entityInstance %> }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
- <%_ if (searchEngine === 'elasticsearch' || jpaModelFiltering) { _%>
+ <%_ if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { _%>
  getSearchEntities,
  <%_ } _%>
  getEntities,

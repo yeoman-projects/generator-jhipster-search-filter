@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 const _ = require('lodash');
-const constants = require('../generator-constants');
+const constants = require('generator-jhipster/generators/generator-constants');
 
 /* Constants use throughout */
 const CLIENT_TEST_SRC_DIR = constants.CLIENT_TEST_SRC_DIR;
@@ -127,14 +127,15 @@ module.exports = {
 };
 
 function writeFiles() {
-    
-    if (this.skipClient) return;
+    return {
+        writeClientFilesOverride() {
+            if (this.skipClient) return;
 
-        if (this.clientFramework === 'angularX') {
+            if (this.clientFramework === 'angularX') {
                 this.writeFilesToDisk(angularFiles, this, false);
             } else if (this.clientFramework === 'react') {
-                this.writeFilesToDisk(reactFiles, this, false);
+                this.writeFilesToDisk(reactFiles, this, false, CLIENT_REACT_TEMPLATES_DIR);
             }
         }
-    
+    };
 }

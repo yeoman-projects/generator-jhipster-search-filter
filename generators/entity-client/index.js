@@ -9,7 +9,7 @@ module.exports = class extends EntityClientGenerator {
         const jhContext = (this.jhipsterContext = this.options.jhipsterContext || opts.jhipsterContext);
 
         if (!jhContext) {
-            this.error(`This is a JHipster blueprint and should be used only like ${chalk.yellow('jhipster --blueprint kotlin')}`);
+            this.error(`This is a JHipster blueprint and should be used only like ${chalk.yellow('jhipster --blueprint search-filter')}`);
         }
 
         this.configOptions = jhContext.configOptions || {};
@@ -17,11 +17,9 @@ module.exports = class extends EntityClientGenerator {
 
 
     get writing() {
-        return {
-            writeAdditionalFile() {
-                writeFiles.call(this);
-            }
-        };
+        const phaseFromJHipster = super._writing();
+        const myCustomPhase = writeFiles()
+        return Object.assign(phaseFromJHipster, myCustomPhase);
     }
 
     get end() {

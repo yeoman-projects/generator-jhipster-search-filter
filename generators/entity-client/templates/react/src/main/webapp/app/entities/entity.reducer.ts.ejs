@@ -22,7 +22,7 @@
 _%>
 import axios from 'axios';
 import {
-  <%_ if (searchEngine === 'elasticsearch' || jpaModeFiltering) { _%>
+  <%_ if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { _%>
   ICrudSearchAction,
   <%_ } _%>
   <%_ if (pagination === 'infinite-scroll') { _%>
@@ -42,7 +42,7 @@ import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util'
 import { I<%= entityReactName %>, defaultValue } from 'app/shared/model/<%= entityModelFileName %>.model';
 
 export const ACTION_TYPES = {
-  <%_ if (searchEngine === 'elasticsearch' || jpaModeFiltering) { _%>
+  <%_ if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { _%>
   SEARCH_<%= entityActionNamePlural %>: '<%= entityInstance %>/SEARCH_<%= entityActionNamePlural %>',
   <%_ } _%>
   FETCH_<%= entityActionName %>_LIST: '<%= entityInstance %>/FETCH_<%= entityActionName %>_LIST',
@@ -77,7 +77,7 @@ export type <%= entityReactName %>State =  Readonly<typeof initialState>;
 
 export default (state: <%= entityReactName %>State = initialState, action): <%= entityReactName %>State => {
   switch (action.type) {
-    <%_ if (searchEngine === 'elasticsearch' || jpaModeFiltering) { _%>
+    <%_ if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { _%>
     case REQUEST(ACTION_TYPES.SEARCH_<%= entityActionNamePlural %>):
     <%_ } _%>
     case REQUEST(ACTION_TYPES.FETCH_<%= entityActionName %>_LIST):
@@ -97,7 +97,7 @@ export default (state: <%= entityReactName %>State = initialState, action): <%= 
         updateSuccess: false,
         updating: true
       };
-    <%_ if (searchEngine === 'elasticsearch' || jpaModeFiltering) { _%>
+    <%_ if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { _%>
     case FAILURE(ACTION_TYPES.SEARCH_<%= entityActionNamePlural %>):
     <%_ } _%>
     case FAILURE(ACTION_TYPES.FETCH_<%= entityActionName %>_LIST):
@@ -112,7 +112,7 @@ export default (state: <%= entityReactName %>State = initialState, action): <%= 
         updateSuccess: false,
         errorMessage: action.payload
       };
-    <%_ if (searchEngine === 'elasticsearch' || jpaModeFiltering) { _%>
+    <%_ if (searchEngine === 'elasticsearch' || jpaMetamodelFiltering) { _%>
     case SUCCESS(ACTION_TYPES.SEARCH_<%= entityActionNamePlural %>):
     <%_ } _%>
     case SUCCESS(ACTION_TYPES.FETCH_<%= entityActionName %>_LIST):
@@ -180,7 +180,7 @@ export default (state: <%= entityReactName %>State = initialState, action): <%= 
 };
 
 const apiUrl = '<% if (applicationType === 'gateway' && locals.microserviceName) { %>services/<%= microserviceName.toLowerCase() %>/<% } %>api/<%= entityApiUrl %>';
-<%_ if (searchEngine === 'elasticsearch' || jpaModeFiltering) { _%>
+<%_ if (searchEngine === 'elasticsearch') { _%>
 const apiSearchUrl = '<% if (applicationType === 'gateway' && locals.microserviceName) { %>services/<%= microserviceName.toLowerCase() %>/<% } %>api/_search/<%= entityApiUrl %>';
 <%_ } _%>
 
@@ -197,8 +197,8 @@ export const getSearchEntities: ICrudSearchAction<I<%= entityReactName %>> = (qu
 });
 
 <%_ } _%>
-<%_ if (jpaModeFiltering) { _%>
-export const getSearchEntities: ICrudSearchAction<I<%= entityReactName %>> = (query, page, size, sort) => ({
+<%_ if (jpaMetamodelFiltering) { _%>
+export const getSearchEntities: ICrudSearchAction<I<%= entityReactName %>> = (query, page, size, sort) => 
   <%_ if (pagination !== 'no') { _%>
 {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}&${query}` : ''}`;
