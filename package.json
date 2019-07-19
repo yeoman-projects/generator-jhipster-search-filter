@@ -1,6 +1,6 @@
 {
   "name": "generator-jhipster-search-filter",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A jhipster blueprint to search entities by query filter string",
   "keywords": [
     "yeoman-generator",
