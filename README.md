@@ -2,6 +2,12 @@
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 > JHipster blueprint, A jhipster blueprint to search entities by query filter string
 
+Uses the elasticsearch frontend search bar, but querying the backend using the `jpaMetamodelFiltering` syntax.
+
+Type `name.contains=jhipster` in the search bar of your blog view, all the blogs whose name contains the `jhipster` word will be displayed.
+
+Experimental blueprint, now working only with React frontend.
+
 # Introduction
 
 This is a [JHipster](https://www.jhipster.tech/) blueprint, that is meant to be used in a JHipster application.
