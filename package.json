@@ -1,7 +1,12 @@
 {
   "name": "generator-jhipster-search-filter",
-  "version": "0.0.3",
+  "version": "0.0.0",
   "description": "A jhipster blueprint to search entities by query filter string",
+  "keywords": [
+    "yeoman-generator",
+    "jhipster-blueprint",
+    "jhipster-5"
+  ],
   "homepage": "https://github.com/ecostanzi/generator-jhipster-search-filter",
   "author": {
     "name": "Enrico Costanzi",
