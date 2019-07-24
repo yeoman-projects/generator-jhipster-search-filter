@@ -197,7 +197,7 @@ export const getSearchEntities: ICrudSearchAction<I<%= entityReactName %>> = (qu
 });
 
 <%_ } _%>
-<%_ if (jpaMetamodelFiltering) { _%>
+<%_ if (searchEngine !== 'elasticsearch' && jpaMetamodelFiltering) { _%>
 export const getSearchEntities: ICrudSearchAction<I<%= entityReactName %>> = (query, page, size, sort) => 
   <%_ if (pagination !== 'no') { _%>
 {
